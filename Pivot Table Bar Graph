@@ -1,3 +1,21 @@
+#Pivot Tables are a pain in the ass to graph because of the way pandas does pivots
+#So, use the first function to create the pivot and the second function to graph it.
+#When I get the time I will try to combine them
+def GraphablePivot(x,y, filepath):
+    file = pd.read_excel(filepath)   
+    df = pd.DataFrame(file)
+    df.apply(pd.to_numeric, errors='ignore')
+    df[y] = df[y].abs()
+    pivot = df.pivot_table(index = [x], values=[y], aggfunc='sum')
+    gdf = pd.DataFrame(pivot.to_records())
+    af = pd.DataFrame(gdf)
+    af.to_excel("filepath" +x+"&"+y+".xlsx")
+
+
+
+
+
+
 def PlotlyGraphPivot(file,x,y,title, xname, yname):
     file = pd.read_excel(file)   
     df = pd.DataFrame(file)
