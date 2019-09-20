@@ -1,0 +1,13 @@
+#You will need some packages imported, but I kept all of these on one document and
+#I dont't want to take the time to figure out which packages are needed on each program
+import pandas as pd
+import glob
+from pandas import DataFrame
+import numpy as np
+from pandas.plotting import table
+from plotly.offline import download_plotlyjs, init_notebook_mode, plot, iplot
+import plotly.tools as tls
+import plotly.graph_objects as go
+import datetime
+import plotly.express as px
+from openpyxl import load_workbook
