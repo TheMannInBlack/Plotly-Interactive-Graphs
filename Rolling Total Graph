@@ -1,0 +1,31 @@
+def RollingSum(file,x,y,title, xname, yname, y1):
+    file = pd.read_excel(file)   
+    df = pd.DataFrame(file)
+    df.apply(pd.to_numeric, errors='ignore')
+    df[y] = df[y].abs()
+    pivot = df.pivot_table(index = [x], values=[y], aggfunc='sum')
+    gdf = pd.DataFrame(pivot.to_records())
+    gdf['cumulative_sum'] = gdf['Amount LC'].cumsum()
+    now = datetime.datetime.now()
+    today = now.strftime("%m-%d-%Y")
+    fig = go.Figure(data=go.Scatter(x = gdf[x], y=gdf[y1]))
+    fig.update_layout(
+        title=go.layout.Title(
+            text=title,
+            xref="paper",
+            x=0),
+        xaxis=go.layout.XAxis(
+                title=go.layout.xaxis.Title(
+                        text= xname,
+                        font=dict(
+                                family="Courier New, monospace",
+                                size=18,
+                                color="#000000"))),
+        yaxis=go.layout.YAxis(
+                title=go.layout.yaxis.Title(
+                        text= yname,
+                        font=dict(
+                                family="Courier New, monospace",
+                                size=18,
+                                color="#000000"))))
+    fig.write_html("filepath.html", auto_open=False)
